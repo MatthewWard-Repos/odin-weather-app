@@ -7,5 +7,6 @@ module.exports = merge(common, {
   devServer: {
     static: "./dist",
     watchFiles: ["./src/template.html"],
+    port: 3000,
   },
 });
