@@ -11,9 +11,10 @@ const fetchWeather = async function (location) {
       `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${location}?unitGroup=uk&elements=remove%3Acloudcover%2Cremove%3Adatetime%2Cremove%3AdatetimeEpoch%2Cremove%3Adew%2Cremove%3Afeelslikemax%2Cremove%3Afeelslikemin%2Cremove%3Aprecipcover%2Cremove%3Apressure%2Cremove%3Asolarenergy%2Cremove%3Asolarradiation%2Cremove%3Avisibility&key=${API_KEY}&contentType=json`,
     );
     const json = await res.json();
-    returnWeather(json);
+    return returnWeather(json);
   } catch {
     console.log(Error);
+    return null;
   }
 };
 
@@ -34,11 +35,27 @@ const returnWeather = async function (data) {
   console.log(locationWeather);
   return locationWeather;
 };
+const displayWeather = function (weatherObj) {
+  let resultsBox = document.getElementById("results-box");
 
-console.log(searchBar);
-form.addEventListener("submit", (e) => {
-  e.preventDefault();
-  console.log(searchBar.value);
-  fetchWeather(searchBar.value);
-});
+  Object.entries(weatherObj).forEach(([key, val]) => {
+    resultsBox.appendChild(createElement(key, val));
+  });
+};
+
+const createElement = function (className, content) {
+  const newDiv = document.createElement("div");
+  newDiv.classList.add(className);
+  newDiv.textContent = content;
+  return newDiv;
+};
+
+const listenSearch = function () {
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const weather = await fetchWeather(searchBar.value);
+    displayWeather(weather);
+  });
+};
+listenSearch();
 window.fetchWeather = fetchWeather;
