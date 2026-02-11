@@ -1,8 +1,14 @@
 import "./styles.css";
-import { createResultDivs, setUnits, createElement } from "./template.js";
+import {
+  createResultDivs,
+  listenTempType,
+  setUnitGroup,
+  unitGroup,
+  setUnits,
+  createElement,
+} from "./template.js";
 
 let API_KEY = "BA3KZ8RM6CGG7T2P5MEVNX9KG";
-let unitGroup = "uk";
 
 const form = document.querySelector("#form-weather");
 const searchBar = document.querySelector("#search");
@@ -38,12 +44,14 @@ const returnWeather = async function (data) {
   return locationWeather;
 };
 const displayWeather = function (weatherObj) {
+  const tempToggle = document.querySelector(".temp-toggle");
   let resultsBox = document.getElementById("results-box");
   resultsBox.innerHTML = "";
   resultsBox.style.display = "flex";
   createResultDivs(resultsBox);
   setUnits();
   form.style.display = "none";
+  tempToggle.style.display = "none";
   Object.entries(weatherObj).forEach(([key, val], index) => {
     const child = resultsBox.childNodes[index];
     if (!child) return;
@@ -56,10 +64,12 @@ const displayWeather = function (weatherObj) {
 const listenSearch = function () {
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
+    setUnitGroup();
     const weather = await fetchWeather(searchBar.value);
     displayWeather(weather);
   });
 };
 
 listenSearch();
+listenTempType();
 window.fetchWeather = fetchWeather;
