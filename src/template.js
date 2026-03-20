@@ -17,7 +17,7 @@ let rainType = millimetres;
 let unitGroup = "uk";
 const US = "us";
 const UK = "uk";
-const metric = "metric";
+// const metric = "metric";
 
 const keys = [
   "location",
