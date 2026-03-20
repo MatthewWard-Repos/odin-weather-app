@@ -1,15 +1,5 @@
-# webpack-template
+# odin-weather-app
 
-A template repository for repos using Webpack. Uses webpack-merge to divide the webpack configuration into common,dev and prod.
+A weather app for looking up the weather in a location using the Visual Crossing API. Allows user to change between celsius and farenheit.
 
-Contains:
--ESLint configuration
--Prettier configuration
--CSS Loader
--HTML Loader
--HTML-webpack-plugin
--styleloader
--webpack
--webpack-cli
--webpack-dev-server
--webpack-merge
+<a href='https://matthewward-repos.github.io/odin-weather-app/ '>Weather App</a>(Open in new tab)
