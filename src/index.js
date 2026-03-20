@@ -12,6 +12,9 @@ let API_KEY = "BA3KZ8RM6CGG7T2P5MEVNX9KG";
 
 const form = document.querySelector("#form-weather");
 const searchBar = document.querySelector("#search");
+const resetDiv = document.querySelector(".reset");
+const resultsBox = document.getElementById("results-box");
+const tempToggle = document.querySelector(".temp-toggle");
 
 const fetchWeather = async function (location) {
   try {
@@ -44,14 +47,13 @@ const returnWeather = async function (data) {
   return locationWeather;
 };
 const displayWeather = function (weatherObj) {
-  const tempToggle = document.querySelector(".temp-toggle");
-  let resultsBox = document.getElementById("results-box");
   resultsBox.innerHTML = "";
   resultsBox.style.display = "flex";
   createResultDivs(resultsBox);
   setUnits();
   form.style.display = "none";
   tempToggle.style.display = "none";
+  resetDiv.classList.remove("hidden");
   Object.entries(weatherObj).forEach(([key, val], index) => {
     const child = resultsBox.childNodes[index];
     if (!child) return;
@@ -69,7 +71,21 @@ const listenSearch = function () {
     displayWeather(weather);
   });
 };
+const listenReset = function () {
+  resetDiv.addEventListener("click", () => {
+    resetSearch();
+  });
+};
+
+const resetSearch = function () {
+  resetDiv.classList.add("hidden");
+  resultsBox.style.display = "none";
+  form.style.display = "block";
+  tempToggle.style.display = "flex";
+  searchBar.value = "";
+};
 
 listenSearch();
 listenTempType();
+listenReset();
 window.fetchWeather = fetchWeather;

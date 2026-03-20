@@ -11,6 +11,11 @@
   align-items: center;
   align-self: flex-start;
 }
+.reset {
+  margin-top: 15px;
+  align-items: center;
+  align-self: flex-start;
+}
 
 #results-box {
   display: none;
@@ -86,4 +91,8 @@ input:checked + .slider:before {
 }
 .slider.round::before {
   border-radius: 50%;
+}
+
+.hidden {
+  display: none;
 }
